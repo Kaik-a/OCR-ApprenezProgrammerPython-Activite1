@@ -7,6 +7,8 @@ from Carte import *
 import sys
 import time
 
+walle = Robot()
+
 def rules():
     """Afficher les règles du jeu"""
     print("\tLe jeu est un labyrinthe formé d'obstacles : des murs qui sont tout simplement là pour vous ralentir, des portes qui peuvent être traversées \n \
@@ -77,10 +79,10 @@ def quit_save(txt):
 def play(carteCopie, carteOriginale):
     """Lancer le jeu"""
     deplacement = move()
-    posRobot = get_position(carteCopie)
+    posRobot = walle.get_position(carteCopie)
     
     if deplacement != "q": 
-        condition = move_to(carteCopie, posRobot, deplacement)
+        condition = walle.move_to(carteCopie, posRobot, deplacement)
     else:
         quit_save(map_generate(carteCopie))
         
@@ -142,7 +144,7 @@ def roboc():
         carteOriginale = maze.copy()
         carteCopie = maze.copy()
         
-    posRobot = get_position(carteOriginale)
+    posRobot = walle.get_position(carteOriginale)
     carteOriginale[posRobot] = " "
     
     print(map_generate(carteCopie))
