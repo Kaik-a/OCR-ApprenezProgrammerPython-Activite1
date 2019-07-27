@@ -5,6 +5,7 @@
 from Robot import *
 from Carte import *
 import sys
+import time
 
 def rules():
     """Afficher les règles du jeu"""
@@ -103,7 +104,7 @@ def begin():
                     return carte_en_cours + ".txt"
             else:
                 print("Commande invalide!")
-    print("Choisissez une carte :")
+    print("Choisissez une carte ou appuyer sur \"Q\" pour quitter:")
     listCarte2 = []
     for index, name in enumerate(listCarte):
         listCarte2.append(str(index))
@@ -111,10 +112,15 @@ def begin():
     valable = False
     while valable == False: 
         answer = (input(""))
+        answer = answer.lower()
         if answer in listCarte2:
             valable = True
             
             return listCarte[int(answer)] + ".txt"
+        elif answer == "q":
+            print("Au revoir !")
+            time.sleep(3)
+            sys.exit()
         else:
             print("La carte choisie est incorrecte, vérifiez votre saisie")
 

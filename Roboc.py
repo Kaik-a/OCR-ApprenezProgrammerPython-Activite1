@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""Ceci est le programme principal du jeu, à lancer en premier !"""
+"""Ceci est le programme principal du jeu, Ã  lancer en premier !"""
 
 from Mecanismes import roboc
 
