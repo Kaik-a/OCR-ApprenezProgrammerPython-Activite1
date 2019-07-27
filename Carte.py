@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 def map_list():
     """On récupère la liste des fichiers *.txt contenus dans le répertoire cartes"""
     import glob 

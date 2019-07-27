@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 def get_position(carte):
     """récupérer la position du robot"""
     for index, value in carte.items(): 
