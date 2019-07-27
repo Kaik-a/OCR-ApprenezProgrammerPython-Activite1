@@ -7,7 +7,7 @@ from Carte import *
 import sys
 import time
 
-walle = Robot()
+walle = Robot("Wall-E")
 carte = Map()
 
 def rules():
