@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+"""Ce fichier contient les principaux mécanismes du jeu Roboc""" 
+
 from Robot import *
 from Carte import *
 import sys

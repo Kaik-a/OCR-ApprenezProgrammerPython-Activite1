@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+"""Ce fichier contient les interactions avec le robot""" 
+
 def get_position(carte):
     """récupérer la position du robot"""
     for index, value in carte.items(): 

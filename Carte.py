@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""Ce fichier contient les fonctions nécessaires à l'enregistrement, création et uilisation de cartes """ 
 
 def map_list():
     """On récupère la liste des fichiers *.txt contenus dans le répertoire cartes"""
