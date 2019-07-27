@@ -46,6 +46,10 @@ def move():
             direction = orientation[0]
             multiplicateur = int(orientation[1])
             valide = True
+        elif len(orientation) == 3 and orientation[0] in ["o", "e", "s", "n"] and orientation[1] in ("12345679") and orientation[2] in ("012345679"):
+            direction = orientation[0]
+            multiplicateur = int(orientation[1] + orientation[2])
+            valide = True
         else:
             print("La commande est incorrecte")
     
