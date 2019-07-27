@@ -101,7 +101,9 @@ def play(carteCopie, carteOriginale):
     posRobot = walle.get_position(carteCopie)
     
     if ordre == "q": 
-        quit_save(carte.map_generate(carteCopie))
+        print("Au revoir !")
+        time.sleep(3)
+        sys.exit()
     elif ordre == "m":
         condition = walle.murer(carteCopie, posRobot, deplacement)
     elif ordre == "p":
@@ -174,5 +176,6 @@ def roboc():
     print(carte.map_generate(carteCopie))
     while True: 
         game = play(carteCopie, carteOriginale)
-    quit_save(game)
+    print("Au revoir !")
+    sys.exit()
     
