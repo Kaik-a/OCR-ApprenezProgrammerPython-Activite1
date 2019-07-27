@@ -32,7 +32,9 @@ class Map():
     def map_generate(self, d):
         """Générer carte à partir de dictionnaire"""
         carte = ""
+        
         alimentation = d.keys()
+        
         nbLigneCol = list(map(max,zip(*alimentation)))
         
         for i in range(nbLigneCol[0] + 1):

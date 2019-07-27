@@ -35,11 +35,23 @@ class Robot():
         
         aMurer = (position[0]+direction[0], position[1]+direction[1])
         
-        if aMurer in d.keys() and d[aMurer] == ".":
+        if aMurer in d.keys() and d[aMurer] == ".": #on vérifie qu'il existe bien une porte à l'emplacement indiqué
             d[aMurer] = "O"
             print("La porte a été correctement murée")
             return position
         else:
             print("il n'y à pas de porte à murer dans cette direction")
-            return ordres()
+            return position
+        
+    def percer(self, d, position, direction):
+        
+        aPercer = (position[0]+direction[0], position[1]+direction[1])
+        
+        if aPercer in d.keys() and d[aPercer] == "O" : #on vérifie qu'il existe bien une porte à l'emplacement indiqué J"ai voulu codé le fait qu'on pouvait pas percer un mur des bors mais je n'ai pas trouvé. Et comme c'est pas demandé =)... Par contre si vous avez une idée je suis preneur.
+            d[aPercer] = "."
+            print("Une porte à été percée dans le mur")
+            return position
+        else:
+            print("Vous ne pouvez pas percer cela")
+            return position
         

@@ -57,9 +57,12 @@ def ordres():
             direction = ordre[0]
             multiplicateur = int(ordre[1])
             valide = True
-        elif len(ordre) == 2 and ordre[0] == "m" and ordre[1] in ["o", "e", "s", "n"]:
+        elif len(ordre) == 2  and ordre[1] in ["o", "e", "s", "n"] and ordre[0] == "m" or ordre[0] == "p": #Si on souhaite murer une porte
             direction = ordre[1]
-            commande = "m"
+            if ordre[0] == "m":
+                commande = "m"  
+            elif ordre[0] == "p":
+                commande = "p"
             valide = True
         elif len(ordre) == 3 and ordre[0] in ["o", "e", "s", "n"] and ordre[1] in ("12345679") and ordre[2] in ("012345679"):
             direction = ordre[0]
@@ -79,7 +82,7 @@ def ordres():
     elif direction == "o":
         vecteur = (0, -1 * multiplicateur)
    
-    return(vecteur, commande)
+    return vecteur, commande
         
 
 def quit_save(txt):
@@ -92,6 +95,7 @@ def play(carteCopie, carteOriginale):
     """Lancer le jeu"""
     deplacement = ""
     ordre = ""
+    majCarte = ""
     
     deplacement, ordre = ordres()
     posRobot = walle.get_position(carteCopie)
@@ -100,12 +104,15 @@ def play(carteCopie, carteOriginale):
         quit_save(carte.map_generate(carteCopie))
     elif ordre == "m":
         condition = walle.murer(carteCopie, posRobot, deplacement)
+    elif ordre == "p":
+        condition = walle.percer(carteCopie, posRobot, deplacement)
     else:
         condition = walle.move_to(carteCopie, posRobot, deplacement)
         
     if condition != posRobot: 
         carteCopie[condition] = "X" 
         carteCopie[posRobot] = carteOriginale[posRobot]
+        
     print(carte.map_generate(carteCopie))
     if carteOriginale[condition] == "U":
         win()
