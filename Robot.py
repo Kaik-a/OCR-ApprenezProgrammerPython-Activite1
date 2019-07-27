@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
+from Mecanismes import *
 
 """Ce fichier contient la classe Robot"""
- 
+
 class Robot():
 
+    def __init__(self, nom):
+        self.nom = nom
+        
     def get_position(self, carte):
         """récupérer la position du robot"""
         for index, value in carte.items(): 
@@ -27,3 +31,15 @@ class Robot():
             print("Vous ne pouvez pas réaliser ce déplacement")
             return position
                     
+    def murer(self, d, position, direction):
+        
+        aMurer = (position[0]+direction[0], position[1]+direction[1])
+        
+        if aMurer in d.keys() and d[aMurer] == ".":
+            d[aMurer] = "O"
+            print("La porte a été correctement murée")
+            return position
+        else:
+            print("il n'y à pas de porte à murer dans cette direction")
+            return ordres()
+        

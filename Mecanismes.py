@@ -22,6 +22,8 @@ def rules():
     S qui demande au robot de se déplacer vers le sud (c'est-à-dire le bas de votre écran) \n \
     O qui demande au robot de se déplacer vers l'ouest (c'est-à-dire la gauche de votre écran) \n \
     Chacune des directions ci-dessus suivies d'un nombre permet d'avancer de plusieurs cases (par exemple E3 pour avancer de trois cases vers l'est).\n \
+    M permet de murer la porte dans la direction indiquée (MS murera ainsi la porte au sud) \n \
+    P permet de percer une porte dans le mur de la direction indiquée \n \
     \n \
     Les murs sont représentés par des 'O' \n \
     Les portes sont représentées par des '.' \n \
@@ -33,30 +35,41 @@ def  win():
     print("Roboc est sauvé !!!")
     roboc()
     
-def move():
+def ordres():
     """"On détermine le mouvement à appliquer par rapport à l'entrée utilisateur"""
     multiplicateur = 1
+    vecteur = (0,0) #On créé un vecteur pour matérialiser le déplacement
     direction = ""
+    commande = ""
     valide = False
     
     while valide == False:
-        orientation = input("Où allons nous ?")
-        orientation = orientation.lower()
-        if len(orientation) == 1 and orientation[0] in ["o", "e", "s", "n", "q"]: #si une seule entrée on vérifie qu'elle fasse partie des paramètres autorisés
+        ordre = input("Quelle action souhaitez-vous réaliser ?")
+        ordre = ordre.lower()
+        
+        if len(ordre) == 1 and ordre[0] in ["o", "e", "s", "n", "q"]: #si une seule entrée on vérifie qu'elle fasse partie des paramètres autorisés
+            if ordre[0] == "q":
+                commande = "q"
+            else:
+                direction = ordre[0] 
             valide = True
-            direction = orientation[0] 
-        elif len(orientation) == 2 and orientation[0] in ["o", "e", "s", "n"] and orientation[1] in("0123456789"): #idem si deux entrées
-            direction = orientation[0]
-            multiplicateur = int(orientation[1])
+        elif len(ordre) == 2 and ordre[0] in ["o", "e", "s", "n"] and ordre[1] in("0123456789"): #idem si deux entrées
+            direction = ordre[0]
+            multiplicateur = int(ordre[1])
             valide = True
-        elif len(orientation) == 3 and orientation[0] in ["o", "e", "s", "n"] and orientation[1] in ("12345679") and orientation[2] in ("012345679"):
-            direction = orientation[0]
-            multiplicateur = int(orientation[1] + orientation[2])
+        elif len(ordre) == 2 and ordre[0] == "m" and ordre[1] in ["o", "e", "s", "n"]:
+            direction = ordre[1]
+            commande = "m"
+            valide = True
+        elif len(ordre) == 3 and ordre[0] in ["o", "e", "s", "n"] and ordre[1] in ("12345679") and ordre[2] in ("012345679"):
+            direction = ordre[0]
+            multiplicateur = int(ordre[1] + ordre[2])
             valide = True
         else:
-            print("La commande est incorrecte")
+            print("La commande est incorrecte, veuillez recommencer")
+            return ordres()
+            
     
-    vecteur = (0,0) #On créé un vecteur pour matérialiser le déplacement
     if direction == "n":
         vecteur = (-1 * multiplicateur, 0)
     elif direction == "s":
@@ -65,10 +78,8 @@ def move():
         vecteur = (0, 1 * multiplicateur)
     elif direction == "o":
         vecteur = (0, -1 * multiplicateur)
-    elif direction == "q":
-        vecteur = "q"
-        
-    return vecteur
+   
+    return(vecteur, commande)
         
 
 def quit_save(txt):
@@ -79,13 +90,18 @@ def quit_save(txt):
     
 def play(carteCopie, carteOriginale):
     """Lancer le jeu"""
-    deplacement = move()
+    deplacement = ""
+    ordre = ""
+    
+    deplacement, ordre = ordres()
     posRobot = walle.get_position(carteCopie)
     
-    if deplacement != "q": 
-        condition = walle.move_to(carteCopie, posRobot, deplacement)
-    else:
+    if ordre == "q": 
         quit_save(carte.map_generate(carteCopie))
+    elif ordre == "m":
+        condition = walle.murer(carteCopie, posRobot, deplacement)
+    else:
+        condition = walle.move_to(carteCopie, posRobot, deplacement)
         
     if condition != posRobot: 
         carteCopie[condition] = "X" 
