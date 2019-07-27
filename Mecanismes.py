@@ -8,6 +8,7 @@ import sys
 import time
 
 walle = Robot()
+carte = Map()
 
 def rules():
     """Afficher les règles du jeu"""
@@ -72,7 +73,7 @@ def move():
 
 def quit_save(txt):
     """Quitter et sauvegarder"""
-    map_save("carte_en_cours.txt", txt)
+    carte.map_save("carte_en_cours.txt", txt)
     print("Vous quittez votre partie et celle-ci est sauvregardée")
     sys.exit()
     
@@ -84,19 +85,19 @@ def play(carteCopie, carteOriginale):
     if deplacement != "q": 
         condition = walle.move_to(carteCopie, posRobot, deplacement)
     else:
-        quit_save(map_generate(carteCopie))
+        quit_save(carte.map_generate(carteCopie))
         
     if condition != posRobot: 
         carteCopie[condition] = "X" 
         carteCopie[posRobot] = carteOriginale[posRobot]
-    print(map_generate(carteCopie))
+    print(carte.map_generate(carteCopie))
     if carteOriginale[condition] == "U":
         win()
 
 def begin():
     """"Initialisation du jeu"""
     rules()
-    listCarte = map_list()
+    listCarte = carte.map_list()
     carte_en_cours = "carte_en_cours"
     if carte_en_cours in listCarte:
         del listCarte[0]
@@ -138,8 +139,8 @@ def roboc():
     carteCopie = {}
     
     if type(maze) == str: 
-        carteOriginale = map_dict(maze)
-        carteCopie = map_dict(maze)
+        carteOriginale = carte.map_dict(maze)
+        carteCopie = carte.map_dict(maze)
     else:
         carteOriginale = maze.copy()
         carteCopie = maze.copy()
@@ -147,7 +148,7 @@ def roboc():
     posRobot = walle.get_position(carteOriginale)
     carteOriginale[posRobot] = " "
     
-    print(map_generate(carteCopie))
+    print(carte.map_generate(carteCopie))
     while True: 
         game = play(carteCopie, carteOriginale)
     quit_save(game)

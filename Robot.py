@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-"""Ce fichier contient les interactions avec le robot""" 
+"""Ce fichier contient la classe Robot"""
+ 
 class Robot():
 
     def get_position(self, carte):
