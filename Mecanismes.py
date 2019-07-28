@@ -37,7 +37,7 @@ considérée comme gagnée. \n \
 
 def win():
     """Afficher le message de victoire et relancer le jeu"""
-    print("Roboc est sauvé !!!")
+    print("{0} est sauvé !!!".format(walle.nom))
     roboc()
 
 
@@ -104,22 +104,21 @@ def play(cartecopie, carteoriginale):
     """Lancer le jeu"""
     
     deplacement, ordre = ordres()
-    posrobot = walle.get_position(cartecopie)
     
     if ordre == "q": 
         print("Au revoir !")
         time.sleep(3)
         sys.exit()
     elif ordre == "m":
-        condition = walle.murer(cartecopie, posrobot, deplacement)
+        condition = walle.murer(cartecopie, deplacement)
     elif ordre == "p":
-        condition = walle.percer(cartecopie, posrobot, deplacement)
+        condition = walle.percer(cartecopie, deplacement)
     else:
-        condition = walle.move_to(cartecopie, posrobot, deplacement)
+        condition = walle.move_to(cartecopie, carteoriginale, deplacement)
         
-    if condition != posrobot:
-        cartecopie[condition] = "X"
-        cartecopie[posrobot] = carteoriginale[posrobot]
+    # if condition != walle.position:
+    # cartecopie[condition] = "X"
+    #    cartecopie[walle.position] = "X"
         
     print(carte.map_generate(cartecopie))
     if carteoriginale[condition] == "U":
