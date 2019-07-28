@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from Mecanismes import *
+import random
 
 """Ce fichier contient la classe Robot"""
 
@@ -8,6 +9,7 @@ class Robot:
 
     def __init__(self, nom):
         self.nom = nom
+        self.position = (0, 0)
 
     @staticmethod
     def get_position(labyrinthe):
@@ -16,8 +18,18 @@ class Robot:
             if value == "X":
                 return index  # On recherche la position du robot dans la carte
 
-    @staticmethod
-    def move_to(d, position, orientation):
+    def set_position(self, labyrinthe):
+        """On trouve un emplacement aléatoire dans le labyrinthe"""
+        listelibre = []
+        listeitems = labyrinthe.items()
+        for item in listeitems:
+            if item[1] == " ":
+                listelibre.append(item[0])
+        pos = random.choice(listelibre)
+        self.position = pos
+        return pos
+
+    def move_to(self, d, position, orientation):
         """Déplacement du robot si possible"""
         trajectoire = []
         allowed = True
@@ -30,6 +42,7 @@ class Robot:
                 # et qu'il n'y ait pas de murs
                 allowed = False
         if dest in d.keys() and d[dest] != "O" and allowed:
+            self.position = dest
             return dest
         else:
             print("Vous ne pouvez pas réaliser ce déplacement")

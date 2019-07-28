@@ -179,8 +179,10 @@ def roboc():
         carteoriginale = maze.copy()
         cartecopie = maze.copy()
         
-    posrobot = walle.get_position(carteoriginale)
-    carteoriginale[posrobot] = " "
+    posrobot = walle.set_position(carteoriginale)
+    print(posrobot)  # test
+    print("la position de {0} est : {1}".format(walle.nom, walle.position))
+    cartecopie[posrobot] = "X"
     
     print(carte.map_generate(cartecopie))
     while True: 
